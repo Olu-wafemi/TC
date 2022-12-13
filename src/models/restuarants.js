@@ -80,7 +80,11 @@ const resturantSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'foods'
 
-    }]
+    }],
+    restuarant_image: {
+        type: String
+    }
+
     
 
 })

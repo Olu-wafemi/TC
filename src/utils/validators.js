@@ -1,5 +1,7 @@
 
 var JOI = require('joi')
+const { joiPasswordExtendCore } = require('joi-password');
+const joiPassword = JOI.extend(joiPasswordExtendCore);
 
 JOI.objectId = require('joi-objectid')(JOI)
 const options = {
@@ -9,6 +11,56 @@ const options = {
       }
     }
   };
+
+
+const createvalidateSignUp= (payload)=>{
+    const schema = JOI.object({
+        email: JOI.string().email().required(),
+        password:  joiPassword
+        .string()
+        .minOfSpecialCharacters(1)
+        
+        .minOfUppercase(1)
+        .minOfNumeric(1)
+        .min(8)
+        .noWhiteSpaces()
+
+        
+        .required(),
+    })
+    return schema.validate(payload,options, { allowUnknown: false})
+
+}
+exports.validateSignUp = (req,res,next)=>{
+    const validate = createvalidateSignUp(req.body)
+    if (validate.error){
+        const message = validate.error.details[0].message
+        
+        return res.status(400).json({status:false, message})
+    }
+    return next();
+}
+const createvalidateSignin = (payload)=>{
+    const schema = JOI.object({
+
+        email: JOI.string().email().required(),
+        password: JOI.string().min(4).required()
+
+    })
+
+    return schema.validate(payload,options, { allowUnknown: false})
+
+}
+exports.validateSignIn = (req,res,next)=>{
+    const validate = createvalidateSignin(req.body)
+    if (validate.error){
+        const message = validate.error.details[0].message
+        
+        return res.status(400).json({status:false, message})
+    }
+    return next();
+}
+
 const createvalidateRegister = (payload) =>{
     const schema = JOI.object({
         restuarant_name: JOI.string().min(5).required(),
