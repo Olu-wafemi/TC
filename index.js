@@ -6,6 +6,9 @@ const path = require('path');
 
 const bodyparser = require('body-parser')
 
+require('./src/repositories/database');
+
+const passportSetup = require('./src/utils/passport-config')
 app.use(express.json({ limit: '50mb' }));;
 app.use(bodyparser.json());
 app.use(cors({
@@ -23,9 +26,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-require('./src/repositories/database');
-
-const passportSetup = require('./src/utils/passport-config')
 let PORT = process.env.PORT || 3000;
 
 const { index } = require('./src/routes/index');
