@@ -18,7 +18,7 @@ passport.deserializeUser((id,done)=>{
 })
 passsport.use(
     new GoogleStrategy({
-        callbackURL: '/api/auth/google/redirect',
+        callbackURL: 'https://tasteclan.cyclic.app/api/auth/google/redirect',
         clientID: process.env.CLIENT_ID,
 
         clientSecret: process.env.CLIENT_SECRET,
