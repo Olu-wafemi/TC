@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require('dotenv').config();
 const cors = require('cors')
 const path = require('path');
-const passportSetup = require('./src/utils/passport-config')
+
 const bodyparser = require('body-parser')
 
 app.use(express.json({ limit: '50mb' }));;
@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
 
 require('./src/repositories/database');
 
-
+const passportSetup = require('./src/utils/passport-config')
 let PORT = process.env.PORT || 3000;
 
 const { index } = require('./src/routes/index');
