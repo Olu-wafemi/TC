@@ -195,7 +195,7 @@ exports.update_food_status= async(req,res)=>{
 
 exports.add_reviews = async(req,res)=>{
 
-    const {user_id} = req.body
+    const user_id = req.user_id
     const {username} = req.body
     const {restuarant_id} = req.body
     const {content} = req.body
@@ -242,7 +242,7 @@ exports.fetch_gallery = async(req,res) =>{
 exports.make_order = async(req,res)=>{
 
     const {order_details} = req.body
-    const {user_id} = req.body
+    const user_id= req.user_id
     const {sub_total} = req.body
     const {delivery_fee} = req.body
 

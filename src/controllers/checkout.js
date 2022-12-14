@@ -11,7 +11,7 @@ const {makepayment} = require('../utils/payment')
 exports.make_order = async(req,res)=>{
 
     const {order_details} = req.body
-    const {user_id} = req.body
+    const user_id = req.user_id
     const {sub_total} = req.body
     const {delivery_fee} = req.body
 
@@ -46,7 +46,7 @@ exports.complete_purchase  = async(req,res)=>{
     const { zip_code} = req.body
     const {phone_number} = req.body
     const {order_note} = req.body   
-    const {user_id} = req.body
+    const user_id = req.user_id
 
 
    
@@ -111,6 +111,34 @@ catch{
     
    
 
+
+
+}
+
+
+function randomStringAsBase64Url(size) {
+    return base64url(crypto.randomBytes(size));
+}
+exports.order_notification = async(req,res)=>{
+
+    const {order_id} = req.body
+    const {user_id} =  req.body
+
+    const order = (await Orders.findOne({_id:order_id}))
+    const token = randomStringAsBase64Url(6)
+    Sendorderdetails("Daramola",order.order_details,"Futa", "2348109616221")
+
+    Sendsms("Daramola", order.order_details,"Futa", "2348109616221", token)
+
+    return res.status(200).json('Done')
+
+
+
+
+
+
+
+    
 
 
 }

@@ -19,7 +19,8 @@ exports.signup = async(req,res) =>{
 
     const hashedpass = await  bcrpt.hash(password, 10)
     const user_data =await User.create({email: email, password:hashedpass})
-    const token =   jwt.sign({email,hashedpass},process.env.SECRET_KEY,{expiresIn: '1h'})
+    const user_id = user_data._id
+    const token =   jwt.sign({email,hashedpass,user_id },process.env.SECRET_KEY,{expiresIn: '1h'})
 
     return res.status(200).json({status:true, message: 'Signup Successful',  user_data, accessToken: token})
 
@@ -31,6 +32,7 @@ exports.signin= async(req,res)=>{
     const {email, password} = req.body
     
     const check_user = await User.findOne({email:email.toLowerCase()})
+    const user_id = check_user._id
     if(!check_user){
         return res.status(404).json({status: false, message: 'Invalid email address'})
     }
@@ -41,7 +43,7 @@ exports.signin= async(req,res)=>{
 
     }
 
-    const token =   jwt.sign({email},process.env.SECRET_KEY,{expiresIn: '1h'})
+    const token =   jwt.sign({email, user_id},process.env.SECRET_KEY,{expiresIn: '1h'})
 
     return res.status(200).json({status: true, message: "Login Successful", user_data:check_user,accessToken: token})
 }

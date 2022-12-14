@@ -11,12 +11,11 @@ router.get('/google', passport.authenticate('google',
 router.get('/google/redirect', passport.authenticate('google',{
     session: false
 }),(req,res)=>{
-    const user = req.user
+    const email = req.user.email
+    const user_id = req.user._id
     
-    const token =   jwt.sign({user},process.env.SECRET_KEY,{expiresIn: '1h'})
-    //const decoded = jwt.verify(token,process.env.SECRET_KEY );  
-    //var userId = decoded.user._id  
-    //console.log(userId) 
+    const token =   jwt.sign({email, user_id},process.env.SECRET_KEY,{expiresIn: '1h'})
+    
 
     return res.status(200).json({status: true, message: "User Successfully Authenticated", accessToken: token})
     
