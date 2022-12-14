@@ -98,6 +98,7 @@ exports.fetch_restuarants_by_id = async(req,res)=>{
 exports.fetch_all_restuarants = async(req,res)=>{
 
     const restuarants = await Resturant.find()
+    
 
     return res.status(200).json({status :true, "message": "Retrieved succesfully", data: restuarants})
 }

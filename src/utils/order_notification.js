@@ -1,4 +1,4 @@
-
+const dotenv = require('dotenv').config();
 const base64url = require('base64url');
 const crypto = require('crypto');
 const request = require('request')
@@ -8,8 +8,8 @@ var transport = nodemailer.createTransport({
     service: process.env.SERVICE,
     
     auth: {
-      user:  "info.tasteclan@gmail.com",
-      pass:"hiziyjnwkqeupczr"
+      user:  process.env.USER_NAME,
+      pass:process.env.PASS
     }
   });
 function randomStringAsBase64Url(size) {

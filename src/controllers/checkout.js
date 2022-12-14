@@ -7,7 +7,9 @@ const {restuarantexists} = require('../utils/response')
 const { User } = require('../models/users')
 const {makepayment} = require('../utils/payment')
 
-
+const base64url = require('base64url');
+const crypto = require('crypto');
+const {Sendsms,Sendorderdetails} = require('../utils/order_notification')
 exports.make_order = async(req,res)=>{
 
     const {order_details} = req.body
@@ -123,7 +125,7 @@ exports.order_notification = async(req,res)=>{
 
     const {order_id} = req.body
     const {user_id} =  req.body
-
+    try{
     const order = (await Orders.findOne({_id:order_id}))
     if (order){
 
@@ -139,7 +141,10 @@ exports.order_notification = async(req,res)=>{
     else{
         return res.status(404).json({status:false, message: "Invalid Order Id"})
     }
-
+}
+catch{
+    return res.status(404).json({status:false, message: 'Invalid Order Id'})
+}
 
 
 
