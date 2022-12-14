@@ -6,5 +6,5 @@ const controller = require('../controllers/checkout')
 
 router.post('/make_order',LoginRequired, validate_make_order,controller.make_order)
 router.post('/complete_order',LoginRequired, validate_add_shipping_details, controller.complete_purchase)
-router.post('/order_notification',LoginRequired,controller.order_notification)
+router.post('/order_notification',controller.order_notification)
 exports.checkoutRouter = router
