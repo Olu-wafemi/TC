@@ -125,12 +125,20 @@ exports.order_notification = async(req,res)=>{
     const {user_id} =  req.body
 
     const order = (await Orders.findOne({_id:order_id}))
+    if (order){
+
+  
     const token = randomStringAsBase64Url(6)
     Sendorderdetails("Daramola",order.order_details,"Futa", "2348109616221")
 
     Sendsms("Daramola", order.order_details,"Futa", "2348109616221", token)
 
-    return res.status(200).json('Done')
+    return res.status(200).json({status: true, message: "Notification Sent Successfully!" })
+    }
+
+    else{
+        return res.status(404).json({status:false, message: "Invalid Order Id"})
+    }
 
 
 
