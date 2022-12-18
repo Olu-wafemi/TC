@@ -8,7 +8,7 @@ exports.signup = async(req,res) =>{
 
     const {email, password} = req.body
 
-    email
+    
 
     const existing_user = await User.findOne({email: email.toLowerCase()})
     if(existing_user){
@@ -18,7 +18,7 @@ exports.signup = async(req,res) =>{
     }
 
     const hashedpass = await  bcrpt.hash(password, 10)
-    const user_data =await User.create({email: email, password:hashedpass})
+    const user_data =await User.create({email: email.toLowerCase(), password:hashedpass})
     const user_id = user_data._id
     const token =   jwt.sign({email,hashedpass,user_id },process.env.SECRET_KEY,{expiresIn: '1h'})
 
