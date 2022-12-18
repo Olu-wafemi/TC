@@ -32,7 +32,7 @@ exports.signin= async(req,res)=>{
     const {email, password} = req.body
     
     const check_user = await User.findOne({email:email.toLowerCase()})
-    const user_id = check_user._id
+    
     if(!check_user){
         return res.status(404).json({status: false, message: 'Invalid email address'})
     }
@@ -42,6 +42,7 @@ exports.signin= async(req,res)=>{
         return res.status(404).json({status:false, message: 'Password is Incorrect'})
 
     }
+    const user_id = check_user._id
 
     const token =   jwt.sign({email, user_id},process.env.SECRET_KEY,{expiresIn: '1h'})
 
