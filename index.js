@@ -11,6 +11,7 @@ require('./src/repositories/database');
 const passportSetup = require('./src/utils/passport-config')
 app.use(express.json({ limit: '50mb' }));;
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: true}));
 app.use(cors({
   origin: "*" ,
   methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
