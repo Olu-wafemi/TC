@@ -4,7 +4,7 @@ const controller = require('../controllers/auth')
 const {validateSignIn, validateSignUp} = require('../utils/validators')
 const jwt = require('jsonwebtoken')
 
-router.post('/signup',validateSignUp,controller.signup)
+router.post('/signup',controller.signup)
 router.post('/signin',validateSignIn,controller.signin)
 router.get('/google', passport.authenticate('google',
 ))
