@@ -21,8 +21,6 @@ router.post('/update_food_status',LoginRequired,validate_update_food_status,cont
 router.post('/add_reviews',LoginRequired, validate_add_reviews,controller.add_reviews)
 router.post('/fetch_reviews',LoginRequired, controller.fetch_reviews)
 router.post('/fetch_gallery',LoginRequired, controller.fetch_gallery)
-router.post('/make_order',LoginRequired, validate_make_order,controller.make_order)
-router.post('/add_shipping_details',LoginRequired,validate_add_shipping_details, controller.add_shipping_details)
 
 
 exports.vendorRouter= router

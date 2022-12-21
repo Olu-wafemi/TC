@@ -7,7 +7,6 @@ const passport = require('passport')
 exports.signup = async(req,res) =>{
 
     const {email, password} = req.body
-    console.log(req.body)
     
 
     const existing_user = await User.findOne({email: email.toLowerCase()})
